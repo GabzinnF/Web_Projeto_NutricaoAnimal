@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Susten Nutri - Portal Industrial</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+
+</head>
+<body>
+
+<header class="cabeça_do_base">
+    <div>
+        <div class="logo-area">
+            <h1>SUSTEN NUTRI</h1>
+            <p>Industrial Portal</p>
+        </div>
+
+        <nav class="barra_dos_links">
+
+            <a href="{{ url_for('dashboard') }}" class="barra_de_navegaçao active"> <span>Dashboard</span></a>
+            <a href="{{ url_for('galpoes') }}" class="barra_de_navegaçao"> <span>Galpões</span></a>
+            <a href="{{ url_for('sensores') }}" class="barra_de_navegaçao"> <span>Sensores</span></a>
+            <a href="{{ url_for('insumos') }}" class="barra_de_navegaçao"> <span>Insumos</span></a>
+            <a href="{{ url_for('estrutura') }}" class="barra_de_navegaçao"> <span>Estruturas</span></a>
+        </nav>
+    </div>
+
+    <div class="barra_parte_configuraçao">
+        <a href="#" class="barra_de_navegaçao"> <span>Settings</span></a>
+        <a href="{{ url_for('logout') }}" class="barra_de_navegaçao"><span style="color: red;">Logout</span></a>
+    </div>
+</header>
+
+<main class="fechamento">
+    {% block content %}
+    {% endblock %}
+</main>
+
+</body>
+</html>

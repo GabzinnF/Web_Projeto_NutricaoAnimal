@@ -1,0 +1,317 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: darkslateblue;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cabeça_do_base {
+    width: 260px;
+    background-color: white;
+    border-right: 1px solid black;
+    display: flex;
+    flex-content: space-between;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.logo-area {
+    margin-bottom: 32px;
+}
+
+.logo-area h1 {
+    font-size: 20px;
+    color: green;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+}
+
+.logo-area p {
+    font-size: 11px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.barra_dos_links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.barra_de_navegaçao {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.nav-item:hover {
+    background-color: white;
+}
+
+.nav-item.active {
+    background-color: green;
+    color: white;
+}
+
+.barra_parte_configuraçao {
+    border-top: 1px solid black;
+    padding-top: 340px;
+}
+
+.fechamento {
+    flex: 1;
+    padding: 32px;
+}
+
+.area_cabeça {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.area_do_titulo h2 {
+    font-size: 24px;
+    color: black;
+    font-weight: 700;
+}
+
+.area_do_titulo p {
+    font-size: 14px;
+    color: grey;
+    margin-top: 4px;
+}
+
+.btn-primary {
+    background-color: forestgreen;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: green;
+}
+
+.formaçao_dos_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.card {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.card_titulo {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card_valor {
+    font-size: 28px;
+    font-weight: 700;
+    color: black;
+    margin-top: 6px;
+}
+
+.tabela {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.formato_tabela {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.formato_tabela th {
+    background-color: white;
+    color: black;
+    padding: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+}
+
+.formato_tabela td {
+    padding: 16px;
+    border-bottom: 1px solid black;
+    color: grey;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+
+
+
+
+
+.corpo_do_home {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.corpo_de_entrada {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid black;
+    box-shadow: 0 4px 12px black;
+    max-width: 800px;
+    width: 100%;
+}
+
+.boas-vindas {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.boas-vindas h1 {
+    color: green;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.boas-vindas p {
+    color: black;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.boas-vindas .subtexto {
+    font-size: 13px;
+    color: grey;
+    display: block;
+    margin-top: 6px;
+}
+
+.colunas_de_login {
+    display: flex;
+    gap: 40px;
+}
+
+.card_de_autenticaçao {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.borda-esquerda {
+    border-left: 1px solid black;
+    padding-left: 40px;
+}
+
+.card-auth h3 {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.campo-grupo label {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+}
+
+.campo-grupo input {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.campo-grupo input:focus {
+    border-color: green;
+}
+
+.btn-bloco {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.btn-cadastro {
+    background-color: darkgreen;
+}
+.btn-cadastro:hover {
+    background-color: #1e293b;
+}
+
+/* Mensagens de Alerta */
+.msg-alerta {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.msg-alerta.erro {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+.msg-alerta.sucesso {
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+

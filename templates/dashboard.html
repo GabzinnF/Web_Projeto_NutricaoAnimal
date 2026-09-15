@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Dashboard de Monitoramento Geral</h2>
+        <p>Visão em tempo real das métricas críticas de produção.</p>
+    </div>
+    <button class="btn-primary">Atualizar Dados</button>
+</div>
+
+<div class="formaçao_dos_cards">
+    <div class="card">
+        <div class="card_titulo">Temperatura Média</div>
+        <div class="card_valor">24.5°C</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Umidade Relativa</div>
+        <div class="card_valor">62%</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Sensores Ativos</div>
+        <div class="card_valor">142/145</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Status Produção</div>
+        <div class="card_valor" style="color: green; font-size: 20px;">Em Processamento</div>
+    </div>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+        <thead>
+            <tr>
+                <th>Severidade</th>
+                <th>Horário</th>
+                <th>Local</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-warning">ATENÇÃO</span></td>
+                <td>10:42 AM</td>
+                <td><strong>Galpão 03 - Setor B</strong></td>
+                <td>Umidade acima do limite ideal (65%).</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-danger">CRÍTICO</span></td>
+                <td>09:15 AM</td>
+                <td><strong>Silo Principal 01</strong></td>
+                <td>Falha de comunicação com o sensor térmico.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

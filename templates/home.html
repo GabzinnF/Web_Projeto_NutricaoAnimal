@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Susten Nutri - Acesso ao Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body class="corpo_do_home">
+
+    <div class="corpo_de_entrada">
+
+        <div class="boas-vindas ao meu site BABYS">
+            <h1>SUSTEN NUTRI</h1>
+            <p>Industrial Portal</p>
+            <span class="subtexto">Gerenciamento de insumos industriais</span>
+        </div>
+
+        <div class="colunas_de_login">
+            <div class="card_de_autenticaçao">
+                <h3>LOGIN</h3>
+                {% if erro_login %}
+                    <p class="msg-alerta erro">{{ erro_login }}</p>
+                {% endif %}
+                <form action="{{ url_for('login') }}" method="POST">
+                    <div class="campo-grupo">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="******@gmail.com" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Senha</label>
+                        <input type="password" name="senha" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-bloco">Entrar</button>
+                </form>
+            </div>
+
+            <div class="card_de_autenticaçao borda-esquerda">
+                <h3>CADASTRO</h3>
+                {% if erro_cadastro %}
+                    <p class="msg-alerta erro">{{ erro_cadastro }}</p>
+                {% endif %}
+                {% if sucesso_cadastro %}
+                    <p class="msg-alerta sucesso">{{ sucesso_cadastro }}</p>
+                {% endif %}
+                <form action="{{ url_for('cadastrar') }}" method="POST">
+                    <div class="campo-grupo">
+                        <label>Criar Usuário</label>
+                        <input type="text" name="form_nome" placeholder="Ex: Heitor Leite" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Criar Email</label>
+                        <input type="text" name="form_email" placeholder="******@gmail.com" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Criar CPF</label>
+                        <input type="text" name="form_cpf" placeholder="***********" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Criar Senha</label>
+                        <input type="password" name="form_senha" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-bloco btn-cadastro">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
