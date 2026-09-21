@@ -129,7 +129,7 @@ body {
     padding: 24px;
     border-radius: 8px;
     border: 1px solid black;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .card_titulo {
@@ -151,7 +151,7 @@ body {
     background-color: white;
     border-radius: 8px;
     border: 1px solid black;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     overflow: hidden;
 }
 
@@ -185,10 +185,6 @@ body {
 }
 
 
-
-
-
-
 .corpo_do_home {
     background-color: white;
     display: flex;
@@ -196,6 +192,7 @@ body {
     align-items: center;
     height: 100vh;
     width: 100vw;
+
 }
 
 .corpo_de_entrada {
@@ -205,7 +202,8 @@ body {
     border: 1px solid black;
     box-shadow: 0 4px 12px black;
     max-width: 800px;
-    width: 100%;
+    width: 480px;
+    text-align: center;
 }
 
 .boas-vindas {
@@ -243,11 +241,9 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-}
+    width: 400px;
+    text-align: center;
 
-.borda-esquerda {
-    border-left: 1px solid black;
-    padding-left: 40px;
 }
 
 .card-auth h3 {
@@ -262,6 +258,8 @@ body {
     flex-direction: column;
     gap: 6px;
     margin-bottom: 16px;
+    width: 400px;
+    text-align: center;
 }
 
 .campo-grupo label {
@@ -276,10 +274,13 @@ body {
     border-radius: 6px;
     font-size: 14px;
     outline: none;
+    width: 400px;
+
 }
 
 .campo-grupo input:focus {
     border-color: green;
+
 }
 
 .btn-bloco {
@@ -292,11 +293,11 @@ body {
 .btn-cadastro {
     background-color: darkgreen;
 }
+
 .btn-cadastro:hover {
-    background-color: #1e293b;
+    background-color: darkblue;
 }
 
-/* Mensagens de Alerta */
 .msg-alerta {
     padding: 8px 12px;
     border-radius: 6px;
@@ -304,14 +305,185 @@ body {
     font-weight: 600;
     margin-bottom: 12px;
 }
+
 .msg-alerta.erro {
-    background-color: #fee2e2;
-    color: #b91c1c;
-    border: 1px solid #fca5a5;
+    background-color: white;
+    color: red;
+    border: 1px solid lightpink;
 }
+
 .msg-alerta.sucesso {
-    background-color: #dcfce7;
-    color: #15803d;
-    border: 1px solid #86efac;
+    background-color: white;
+    color: forestgreen;
+    border: 1px solid lightgreen;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-verde {
+    background-color: green;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-verde:hover {
+    background-color: green;
+}
+.linha-alerta-critico {
+    background-color: white;
+}
+
+.linha-alerta-resolvido {
+    background-color: white;
+}
+
+.badge-critico {
+    background-color: red;
+    color: white;
+}
+
+.badge-resolvido {
+    background-color: green;
+    color: white;
+}
+
+.texto-critico-tabela {
+    color: red;
+    font-weight: bold;
+}
+.alerta-ativo-valor {
+    color: red;
+}
+
+.link-galpao {
+    color: forestgreen;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.margem-abaixo-24 {
+    margin-bottom: 24px;
+}
+
+.badge-operacao {
+    background-color: white;
+    color: green;
+    margin-left: 8px;
+}
+
+.subtexto-galpao {
+    font-size: 14px;
+    font-weight: normal;
+    color: grey;
+    margin-top: 4px;
+}
+
+.card-bloco-interno {
+    background-color: white;
+}
+
+.card-bloco-titulo {
+    font-size: 14px;
+    color: black;
+}
+
+.subtexto-bloco {
+    font-size: 13px;
+    color: grey;
+    margin-bottom: 16px;
+}
+
+.th-setor-titulo {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.insumo-nome-tabela {
+    color: black;
+    font-weight: bold;
+}
+
+.status-atencao {
+    color: orange;
+    font-weight: bold;
+}
+
+.status-normal {
+    color: green;
+    font-weight: bold;
+}
+
+.insumo-bloco-nome {
+    color: black;
+    font-weight: bold;
+    display: block;
+}
+
+.id-pequeno {
+    color: grey;
+}
+
+.badge-graos {
+    border: 1px solid black;
+    color: black;
+}
+
+.badge-aditivos {
+    border: 1px solid purple;
+    color: purple;
+}
+
+.linha-erro-tabela {
+    background-color: white;
+}
+
+.insumo-erro-valor {
+    color: red;
+    font-weight: bold;
+}
+
+.container-centralizado-card {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.card-largura-fixa {
+    width: 260px;
+    text-align: center;
+}
+
+.id-sensor-mono {
+    font-family: monospace;
+}
+
+.sensor-nome-tabela {
+    color: black;
+    font-weight: bold;
+}
+
+.badge-online {
+    border: 1px solid green;
+    color: green;
+}
+
+.container-vertical-alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.subtexto-alerta-paragrafo {
+    margin-top: 4px;
+    font-weight: normal;
 }
 

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Gerenciamento de Galpões</h2>
+    </div>
+    <button class="btn-primary">+ ADICIONAR NOVO GALPÃO</button>
+</div>
+
+<div class="formaçao_dos_cards">
+    <div class="card">
+        <div class="card_titulo">Total Galpões</div>
+        <div class="card_valor">12</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Capacidade Total</div>
+        <div class="card_valor">48 blocos</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Alertas Ativos</div>
+        <div class="card_valor alerta-ativo-valor">2</div>
+    </div>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME DO GALPÃO</th>
+                <th>QTD. BLOCOS</th>
+                <th>STATUS</th>
+                <th>AÇÕES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#GLP-001</td>
+                <td>Galpão Norte Alfa</td>
+                <td>45</td>
+                <td><span class="badge status-normal">OPERACIONAL</span></td>
+                <td>Visualizar | Editar | Excluir</td>
+            </tr>
+            <tr>
+                <td>#GLP-002</td>
+                <td>Galpão Sul Beta</td>
+                <td>60</td>
+                <td><span class="badge status-atencao">MANUTENÇÃO</span></td>
+                <td>Visualizar | Editar | Excluir</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

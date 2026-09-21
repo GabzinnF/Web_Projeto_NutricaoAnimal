@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Susten Nutri - Acesso ao Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body class="corpo_do_home">
+<div class="corpo_de_entrada">
+
+    <div class="boas-vindas ao meu site BABYS">
+        <h1>SUSTEN NUTRI</h1>
+        <p>Industrial Portal</p>
+        <span class="subtexto">Gerenciamento de insumos industriais</span>
+    </div>
+
+    <div class="colunas_de_login">
+        <div class="card_de_autenticaçao">
+            <h3>LOGIN</h3>
+
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="campo-grupo">
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Exemplo@gmail.com">
+                </div>
+                <div class="campo-grupo">
+                    <label>Senha</label>
+                    <input type="password" name="senha" placeholder="••••••••" >
+                </div>
+                <form>
+                    <button type="submit" class="btn-verde">Entrar</button>
+                </form>
+            </form>
+            <div class="text-center">
+            <p class="text-muted small">Não tem conta?
+                <a href="{{ url_for('home') }}">Cadastro</a>
+            </p>
+        </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

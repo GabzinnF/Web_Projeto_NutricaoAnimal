@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Susten Nutri - Portal Industrial</title>
     <link rel="stylesheet" href="/static/css/style.css"/>
-
 </head>
 <body>
 
@@ -16,12 +15,11 @@
         </div>
 
         <nav class="barra_dos_links">
-
-            <a href="{{ url_for('dashboard') }}" class="barra_de_navegaçao active"> <span>Dashboard</span></a>
-            <a href="{{ url_for('galpoes') }}" class="barra_de_navegaçao"> <span>Galpões</span></a>
-            <a href="{{ url_for('sensores') }}" class="barra_de_navegaçao"> <span>Sensores</span></a>
-            <a href="{{ url_for('insumos') }}" class="barra_de_navegaçao"> <span>Insumos</span></a>
-            <a href="{{ url_for('estrutura') }}" class="barra_de_navegaçao"> <span>Estruturas</span></a>
+            <a href="{{ url_for('dashboard') }}" class="barra_de_navegaçao {% if request.endpoint == 'dashboard' %}active{% endif %}"> <span>Dashboard</span></a>
+            <a href="{{ url_for('galpoes') }}" class="barra_de_navegaçao {% if request.endpoint in ['galpoes', 'estrutura'] %}active{% endif %}"> <span>Galpões</span></a>
+            <a href="{{ url_for('sensores') }}" class="barra_de_navegaçao {% if request.endpoint == 'sensores' %}active{% endif %}"> <span>Sensores</span></a>
+            <a href="{{ url_for('insumos') }}" class="barra_de_navegaçao {% if request.endpoint == 'insumos' %}active{% endif %}"> <span>Insumos</span></a>
+            <a href="{{ url_for('alertas') }}" class="barra_de_navegaçao {% if request.endpoint == 'alertas' %}active{% endif %}"> <span>Alertas</span></a>
         </nav>
     </div>
 

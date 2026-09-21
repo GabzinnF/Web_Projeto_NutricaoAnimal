@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Central de Segurança e Alertas</h2>
+    </div>
+</div>
+<div class="formaçao_dos_cards">
+    <div class="card">
+        <div class="card_titulo">Alertas Ativos</div>
+        <div class="card_valor alerta-ativo-valor">2</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Alertas Resolvidos</div>
+        <div class="card_valor" style="color: green;">14</div>
+    </div>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+        <thead>
+            <tr>
+                <th>DATA / HORA</th>
+                <th>TIPO DE ALERTA</th>
+                <th>LOCAL / ESTRUTURA</th>
+                <th style="text-align: center;">STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="linha-alerta-critico">
+                <td>21/09/2026 - 15:42</td>
+                <td class="texto-critico-tabela">Umidade Excedida</td>
+                <td class="insumo-nome-tabela">Galpão Norte 01 > Bloco A</td>
+                <td style="text-align: center;"><span class="badge badge-critico">ATIVO</span></td>
+            </tr>
+            <tr class="linha-alerta-critico">
+                <td>21/09/2026 - 14:15</td>
+                <td class="texto-critico-tabela">Temperatura Alta</td>
+                <td class="insumo-nome-tabela">Galpão Sul Beta > Setor 02</td>
+                <td style="text-align: center;"><span class="badge badge-critico">ATIVO</span></td>
+            </tr>
+            <tr class="linha-alerta-resolvido">
+                <td>21/09/2026 - 11:30</td>
+                <td class="status-normal">Conectividade IoT</td>
+                <td class="insumo-nome-tabela">Mistura A > Linha 1</td>
+                <td style="text-align: center;"><span class="badge badge-resolvido">RESOLVIDO</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Controle de Insumos </h2>
+    </div>
+    <button class="btn-primary">+ Novo Insumo</button>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+        <thead>
+            <tr>
+                <th>NOME DO PRODUTO</th>
+                <th>CATEGORY</th>
+                <th>TEMPERATURA MAX (°C)</th>
+                <th>UMIDADE MAX (%)</th>
+                <th>UMIDADE MIN (%)</th>
+                <th>TEMPERATURA MIN (°C)</th>
+                <th>ULTIMA ATUALIZAÇÃO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="insumo-bloco-nome">Milho em Grão (Lote A)</span>
+                    <small class="id-pequeno">ID: INS-1001</small>
+                </td>
+                <td><span class="badge badge-graos">Grãos</span></td>
+                <td>25.0<br><small>Atual: 22.1</small></td>
+                <td>14.0<br><small>Atual: 12.5</small></td>
+                <td>11.0</td>
+                <td>11.0</td>
+                <td>24/10/2023</td>
+            </tr>
+            <tr class="linha-erro-tabela">
+                <td>
+                    <span class="insumo-bloco-nome">Vitamina Premix B</span>
+                    <small class="id-pequeno">ID: INS-3011</small>
+                </td>
+                <td><span class="badge badge-aditivos">Aditivos</span></td>
+                <td>22.0<br><small>Atual: 21.5</small></td>
+                <td class="insumo-erro-valor">60.0<br><small>Excedeu: 62.4</small></td>
+                <td>40.0</td>
+                <td>40.0</td>
+                <td>24/10/2023</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
