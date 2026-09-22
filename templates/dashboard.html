@@ -6,7 +6,39 @@
         <h2>Dashboard de Monitoramento Geral</h2>
         <p>Visão em tempo real das métricas críticas de produção.</p>
     </div>
-    <button class="btn-primary">Atualizar Dados</button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="card_login" action="{{ url_for('dashboard') }}" method="post">
+                        <div class="card_login">
+                            <h1>Atualização de Dashboard</h1>
+                            <label>
+                            Nome:
+                            <input id="input-nome" type="text" placeholder="Digite o nome do Insumo" name="form_nome"
+                                   class="form-control"><br></label>
+                            <label>
+                            Descrição:
+                            <input id="input-cargo" type="text" placeholder="Digite a Descrição" name="form_cargo"
+                                   class="form-control"
+                                   required><br></label>
+                            <button type="submit" class="btn btn-info">Cadastrar</button>
+
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="formaçao_dos_cards">
@@ -31,26 +63,26 @@
 <div class="tabela">
     <table class="formato_tabela">
         <thead>
-            <tr>
-                <th>Severidade</th>
-                <th>Horário</th>
-                <th>Local</th>
-                <th>Descrição</th>
-            </tr>
+        <tr>
+            <th>Severidade</th>
+            <th>Horário</th>
+            <th>Local</th>
+            <th>Descrição</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><span class="badge badge-warning">ATENÇÃO</span></td>
-                <td>10:42 AM</td>
-                <td><strong>Galpão 03 - Setor B</strong></td>
-                <td>Umidade acima do limite ideal (65%).</td>
-            </tr>
-            <tr>
-                <td><span class="badge badge-danger">CRÍTICO</span></td>
-                <td>09:15 AM</td>
-                <td><strong>Silo Principal 01</strong></td>
-                <td>Falha de comunicação com o sensor térmico.</td>
-            </tr>
+        <tr>
+            <td><span class="badge badge-warning">ATENÇÃO</span></td>
+            <td>10:42 AM</td>
+            <td><strong>Galpão 03 - Setor B</strong></td>
+            <td>Umidade acima do limite ideal (65%).</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-danger">CRÍTICO</span></td>
+            <td>09:15 AM</td>
+            <td><strong>Silo Principal 01</strong></td>
+            <td>Falha de comunicação com o sensor térmico.</td>
+        </tr>
         </tbody>
     </table>
 </div>

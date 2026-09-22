@@ -1,51 +1,129 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="area_cabeça">
+<div class="area_cabeça" xmlns="http://www.w3.org/1999/html">
     <div class="area_do_titulo">
         <h2>Controle de Insumos </h2>
     </div>
-    <button class="btn-primary">+ Novo Insumo</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        + Novo Insumo
+    </button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="card_login" action="{{ url_for('insumos') }}" method="post">
+                        <div class="card_login1">
+                            <h1>NOVO INSUMO</h1>
+                            <label>
+                                Tipo:
+                                <input id="input_tipo" type="text" placeholder="Digite o Tipo de Insumo"
+                                       name="form_tipo"
+                                       class="form-control"
+                                       required><br></label>
+                            <label>
+                                Nome:
+                                <input id="input-nome" type="text" placeholder="Digite o Nome do Insumo"
+                                       name="form_nome"
+                                       class="form-control"><br></label>
+                            <div class="ladolado">
+                                <label>
+                                    Umidade Max:
+                                    <input id="input-umidade_max" type="number" placeholder="Digite a Umidade Max"
+                                           name="form_umidade_max"
+                                           class="form-control"
+                                           required><br></label>
+                                <label>
+                                    Umidade Min:
+                                    <input id="input-umidade_min" type="number" placeholder="Digite a Umidade Min"
+                                           name="form_umidade_min"
+                                           class="form-control"
+                                           required><br></label>
+                            </div>
+                            <br>
+                            <div class="ladolado">
+                                <label>
+                                    Temperatura Max:
+                                    <input id="input-temperatura_max" type="number" placeholder="Digite a Temperatura Max"
+                                           name="form_temperatura_max"
+                                           class="form-control"
+                                           required><br></label>
+                                <label>
+                                    Temperatura Min:
+                                    <input id="input-temperatura_min" type="number" placeholder="Digite a Temperatura Min"
+                                           name="form_temperatura_min"
+                                           class="form-control"
+                                           required><br></label>
+                            </div>
+                            <label>
+                                Quantidade:
+                                <input id="input-quantidade" type="number" placeholder="Digite a Quantidade"
+                                       name="form_quantidade"
+                                       class="form-control"
+                                       required><br></label>
+                            <label>
+                                Unidade de Medida:
+                                <input id="input-unidade_medida" type="text" placeholder="Digite a Unidade de Medida"
+                                       name="form_unidade_medida"
+                                       class="form-control"
+                                       required><br></label>
+                            <button type="submit" class="btn btn-info">Cadastrar Insumo</button>
+
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="tabela">
     <table class="formato_tabela">
         <thead>
-            <tr>
-                <th>NOME DO PRODUTO</th>
-                <th>CATEGORY</th>
-                <th>TEMPERATURA MAX (°C)</th>
-                <th>UMIDADE MAX (%)</th>
-                <th>UMIDADE MIN (%)</th>
-                <th>TEMPERATURA MIN (°C)</th>
-                <th>ULTIMA ATUALIZAÇÃO</th>
-            </tr>
+        <tr>
+            <th>NOME DO PRODUTO</th>
+            <th>CATEGORIA</th>
+            <th>TEMPERATURA MAX (°C)</th>
+            <th>UMIDADE MAX (%)</th>
+            <th>UMIDADE MIN (%)</th>
+            <th>TEMPERATURA MIN (°C)</th>
+            <th>ULTIMA ATUALIZAÇÃO</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <span class="insumo-bloco-nome">Milho em Grão (Lote A)</span>
-                    <small class="id-pequeno">ID: INS-1001</small>
-                </td>
-                <td><span class="badge badge-graos">Grãos</span></td>
-                <td>25.0<br><small>Atual: 22.1</small></td>
-                <td>14.0<br><small>Atual: 12.5</small></td>
-                <td>11.0</td>
-                <td>11.0</td>
-                <td>24/10/2023</td>
-            </tr>
-            <tr class="linha-erro-tabela">
-                <td>
-                    <span class="insumo-bloco-nome">Vitamina Premix B</span>
-                    <small class="id-pequeno">ID: INS-3011</small>
-                </td>
-                <td><span class="badge badge-aditivos">Aditivos</span></td>
-                <td>22.0<br><small>Atual: 21.5</small></td>
-                <td class="insumo-erro-valor">60.0<br><small>Excedeu: 62.4</small></td>
-                <td>40.0</td>
-                <td>40.0</td>
-                <td>24/10/2023</td>
-            </tr>
+        <tr>
+            <td>
+                <span class="insumo-bloco-nome">Milho em Grão (Lote A)</span>
+                <small class="id-pequeno">ID: INS-1001</small>
+            </td>
+            <td><span class="badge badge-graos">Grãos</span></td>
+            <td>25.0<br><small>Atual: 22.1</small></td>
+            <td>14.0<br><small>Atual: 12.5</small></td>
+            <td>11.0</td>
+            <td>11.0</td>
+            <td>24/10/2023</td>
+        </tr>
+        <tr class="linha-erro-tabela">
+            <td>
+                <span class="insumo-bloco-nome">Vitamina Premix B</span>
+                <small class="id-pequeno">ID: INS-3011</small>
+            </td>
+            <td><span class="badge badge-aditivos">Aditivos</span></td>
+            <td>22.0<br><small>Atual: 21.5</small></td>
+            <td class="insumo-erro-valor">60.0<br><small>Excedeu: 62.4</small></td>
+            <td>40.0</td>
+            <td>40.0</td>
+            <td>24/10/2023</td>
+        </tr>
         </tbody>
     </table>
 </div>

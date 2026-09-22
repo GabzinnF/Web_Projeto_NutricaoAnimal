@@ -5,7 +5,42 @@
     <div class="area_do_titulo">
         <h2>Gerenciamento de Sensores</h2>
     </div>
-    <button class="btn-primary">+ Vincular Sensor</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        + Vincular Sensor
+    </button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="card_login" action="{{ url_for('sensores') }}" method="post">
+                        <div class="card_login">
+                            <h1>NOVO SENSOR</h1>
+                            <label>
+                            Nome:
+                            <input id="input-nome" type="text" placeholder="Digite o nome do Sensor" name="form_nome"
+                                   class="form-control"><br></label>
+                            <label>
+                            capacidade:
+                            <input id="input-capacidade" type="number" placeholder="Digite a Capacidade" name="form_capacidade"
+                                   class="form-control"
+                                   required><br></label>
+                            <button type="submit" class="btn btn-info">Cadastrar</button>
+
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container-centralizado-card">

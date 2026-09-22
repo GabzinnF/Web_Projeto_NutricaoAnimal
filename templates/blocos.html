@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Gerenciamento de Blocos</h2>
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        + CADASTRAR BLOCO
+    </button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="card_login" action="{{ url_for('blocos') }}" method="post">
+                        <div class="card_login">
+                            <h1>NOVO BLOCO</h1>
+
+                            Nome:
+                            <input id="input-nome" type="text" placeholder="Digite o nome do Bloco" name="form_nome"
+                                   class="form-control"><br>
+                            <button type="submit" class="btn btn-info">Cadastrar</button>
+
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="formaçao_dos_cards">
+    <div class="card">
+        <div class="card_titulo">Total de Blocos</div>
+        <div class="card_valor">48</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Ocupação Média</div>
+        <div class="card_valor">74%</div>
+    </div>
+    <div class="card">
+        <div class="card_titulo">Blocos Críticos</div>
+        <div class="card_valor alerta-ativo-valor">3</div>
+    </div>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+        <thead>
+        <tr>
+            <th>ID BLOCO</th>
+            <th>NOME DO BLOCO</th>
+            <th>GALPÃO VINCULADO</th>
+            <th>QTD. SETORES</th>
+            <th>OCUPAÇÃO</th>
+            <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>#BLC-01A</td>
+            <td><a class="link-bloco">Bloco A - Matéria Prima</a></td>
+            <td class="insumo-nome-tabela">Galpão Norte 01</td>
+            <td>3 Setores</td>
+            <td>85%</td>
+            <td><span class="badge badge-online">ESTÁVEL</span></td>
+        </tr>
+        <tr class="linha-erro-tabela">
+            <td>#BLC-01B</td>
+            <td><a class="link-bloco">Bloco B - Aditivos Secos</a></td>
+            <td class="insumo-nome-tabela">Galpão Norte 01</td>
+            <td>4 Setores</td>
+            <td class="insumo-erro-valor">92%</td>
+            <td><span class="badge badge-capacidade-alerta">LIMITE</span></td>
+        </tr>
+        <tr>
+            <td>#BLC-02A</td>
+            <td><a class="link-bloco">Bloco A - Macroingredientes</a></td>
+            <td class="insumo-nome-tabela">Galpão Sul Beta</td>
+            <td>2 Setores</td>
+            <td>45%</td>
+            <td><span class="badge badge-online">ESTÁVEL</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

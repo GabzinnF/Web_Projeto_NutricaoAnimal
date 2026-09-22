@@ -74,7 +74,7 @@ body {
 
 .barra_parte_configuraçao {
     border-top: 1px solid black;
-    padding-top: 340px;
+    padding-top: 280px;
 }
 
 .fechamento {
@@ -337,6 +337,7 @@ body {
 .btn-verde:hover {
     background-color: green;
 }
+
 .linha-alerta-critico {
     background-color: white;
 }
@@ -359,6 +360,7 @@ body {
     color: red;
     font-weight: bold;
 }
+
 .alerta-ativo-valor {
     color: red;
 }
@@ -485,5 +487,46 @@ body {
 .subtexto-alerta-paragrafo {
     margin-top: 4px;
     font-weight: normal;
+}
+
+.link-bloco {
+    color: grey;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.badge-capacidade-alerta {
+    background-color: white;
+    color: orange;
+    border: 1px solid orange;
+}
+
+.badge-capacidade-super-critico {
+    border: 1px solid red;
+    color: red;
+}
+
+.card_login {
+    width: 100%;
+    max-width: 600px;
+    margin: 3px auto;
+    background: honeydew;
+    padding: 6px;
+    text-align: center;
+
+}
+.card_login1 {
+    width: 100%;
+    max-width: 600px;
+    margin: 3px auto;
+    background: honeydew;
+    padding: 6px;
+}
+
+
+.ladolado {
+    width: 100%;
+    display: flex;
+    gap: 12px;
 }
 
