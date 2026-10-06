@@ -2,31 +2,29 @@ import datetime
 
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from sqlalchemy.exc import SQLAlchemyError
-
-from database import db_session, Usuarios, Insumos, Galpoes, Blocos, Sensores
+import requests
 from sqlalchemy import select, and_, func
-from flask_login import LoginManager, login_required, logout_user, current_user, login_user
+from flask_login import LoginManager, login_required, logout_user, current_user, login_user, UserMixin
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "leite_gato"
 
-# login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
-# login_manager.login_massage = 'Para visualizar essa pagina faça o login'
+api_url = "http://10.135.232.19:5000"
 
+DESVIAR_PROXY = {"http" : None, "https" : None}
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Para visualizar essa pagina faça o login'
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db_session.remove()
+class UserSession(UserMixin):
+    def __init__(self, id, nome=None):
+        self.id = id
+        self.nome = nome
 
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     user = select(Usuarios).where(Usuarios.id == int(user_id))
-#     resultado = db_session.execute(user).scalar_one_or_none()
-#     return resultado
-
-
+@login_manager.user_loader
+def load_user(user_id):
+    user_name = session.get('user_name')
+    return UserSession(id=user_id, nome=user_name)
 @app.route('/')
 def home():
     if "usuario_logado" in session:
@@ -36,55 +34,67 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form.get("form_email")
-        senha = request.form.get("form_senha")
+    if current_user.is_authenticated:
+        # return redirect(url_for('dashboard'))
+        return render_template('dashboard.html')
+    if request.method == "POST":
+        credenciais = {
+            "email" : request.form.get("form_email"),
+            "senha" : request.form.get("form_senha")
+        }
+        try:
+            resposta = requests.post(f"{api_url}/login", json=credenciais, timeout=5, proxies=DESVIAR_PROXY)
+            if resposta.status_code == 200:
+                dados_resposta = resposta.json()
+                user_id = dados_resposta.get("user_id")
+                user_name = dados_resposta.get("user_name")
 
-        if email and senha:
-            verificar_email = select(Usuarios).where(Usuarios.email == email)
-            resultado_email = db_session.execute(verificar_email).scalar_one_or_none()
+                session['user_name'] = user_name
+                session.modified = True
 
-            if resultado_email:
-                if resultado_email.check_password(senha):
-                    login_user(resultado_email)
-                    flash('Login efetuado com sucesso', 'success')
-                    print('Logado com sucesso')
-                    return redirect(url_for('dashboard'))
-                else:
-                    flash('Senha incorreta', 'alert-danger')
-                    return render_template('login.html')
+                user = UserSession(id=user_id, nome=user_name)
+                login_user(user)
+
+                flash('Login com sucesso', 'success')
+                return redirect(url_for('dashboard'))
             else:
-                flash('Email não encontrado', 'alert-danger')
-                return render_template('login.html')
-        else:
-            flash('Preencha todos os campos', 'alert-danger')
-            return render_template('login.html')
-    else:
+                dados_erro = resposta.json()
+                erro = dados_erro.get('error') or dados_erro.get('erro') or 'Credenciais inválidas'
+                flash(erro, 'danger')
+        except requests.exceptions.RequestException as e:
+            print(f"\n[ERRO DE CONEXION] : {e}\n")
+            flash('Erro de conexão com o servidor central (API fora do ar).', 'danger')
+    return render_template('dashboard.html')
+
+
+@app.route('/cadastrar', methods=['POST', 'GET'])
+def cadastrar():
+    if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
 
-
-@app.route('/cadastrar', methods=['POST'])
-def cadastrar():
     if request.method == "POST":
-        nome = request.form.get("form_nome")
-        cpf = request.form.get("form_cpf")
-        email = request.form.get("form_email")
-        senha = request.form.get("form_senha")
+        dados_usuario = {
+        "nome" : request.form.get('form_nome'),
+        "cpf" : request.form.get('form_cpf'),
+        "email" : request.form.get('form_email'),
+        "senha" : request.form.get('form_senha')
+        }
+        try:
+            dados = requests.post(f"{api_url}/usuarios", json=dados_usuario, timeout=5, proxies=DESVIAR_PROXY)
+            if dados.status_code == 201:
+                flash( 'Cadastro realizado com sucesso', 'success')
+                return redirect(url_for('login'))
+            else:
+                dados_erro = dados.json()
+                erro = dados_erro('error') or dados_erro.get('erro') or 'Erro ao cadastrar'
+                flash(erro, 'danger')
+        except requests.exceptions.RequestException as e:
+            print(f"\n[ERRO DE CONEXÃO NO CADASTRO] : {e}\n")
+            flash('Erro de conexão com o servidor central (API fora de ar)', 'danger')
 
-        usuario = Usuarios(
-            nome=nome,
-            cpf=cpf,
-            email=email,
-            senha=senha,
-        )
-
-        db_session.add(usuario)
-        db_session.commit()
+    return render_template('login.html')
 
 
-        return redirect(url_for("login"))
-
-    return render_template("cadastro.html")
 
 
 @app.route("/logout")
@@ -99,33 +109,19 @@ def dashboard():
     return render_template('dashboard.html')
 
 
-@app.route('/galpoes')
+@app.route('/galpoes', methods=['POST'])
 def galpoes():
     if request.method == "POST":
         nome = request.form.get("form_nome")
         descricao = request.form.get("form_descricao")
 
-        galpoes = Galpoes(
-            nome=nome,
-            descricao=descricao,
-        )
-
-        db_session.add(galpoes)
-        db_session.commit()
-
     return render_template('galpoes.html')
+
 
 @app.route('/blocos')
 def blocos():
     if request.method == "POST":
         nome = request.form.get("form_nome")
-
-        blocos = Blocos(
-            nome=nome,
-        )
-
-        db_session.add(blocos)
-        db_session.commit()
 
     return render_template('blocos.html')
 
@@ -142,20 +138,6 @@ def insumos():
         quantidade = request.form.get("form_quantidade")
         unidade_medida = request.form.get("form_unidade_medida")
 
-        insumo = Insumos(
-            tipo=tipo,
-            nome=nome,
-            umidade_max=umidade_max,
-            umidade_min=umidade_min,
-            temperatura_max=temperatura_max,
-            temperatura_min=temperatura_min,
-            quantidade=quantidade,
-            unidade_medida=unidade_medida,
-        )
-
-        db_session.add(insumo)
-        db_session.commit()
-
     return render_template('insumos.html')
 
 
@@ -164,14 +146,6 @@ def sensores():
     if request.method == "POST":
         nome = request.form.get("form_nome")
         capacidade = request.form.get("form_capacidade")
-
-        sensores = Sensores(
-            nome=nome,
-            capacidade=capacidade,
-        )
-
-        db_session.add(sensores)
-        db_session.commit()
 
     return render_template('sensores.html')
 
