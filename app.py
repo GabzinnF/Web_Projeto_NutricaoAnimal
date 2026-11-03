@@ -9,7 +9,7 @@ from flask_login import LoginManager, login_required, logout_user, current_user,
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "leite_gato"
 
-api_url = "http://10.135.232.19:5000"
+api_url = "http://10.135.232.15:5000"
 
 DESVIAR_PROXY = {"http" : None, "https" : None}
 login_manager = LoginManager(app)
