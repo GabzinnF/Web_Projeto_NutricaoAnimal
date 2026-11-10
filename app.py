@@ -1,5 +1,6 @@
 import datetime
 
+import requests
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -10,9 +11,11 @@ from flask_login import LoginManager, login_required, logout_user, current_user,
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "leite_gato"
 
-# login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
-# login_manager.login_massage = 'Para visualizar essa pagina faça o login'
+API_URL = "https://10.135.232.25:5000"
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_massage = 'Para visualizar essa pagina faça o login'
 
 
 @app.teardown_appcontext
@@ -20,11 +23,11 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     user = select(Usuarios).where(Usuarios.id == int(user_id))
-#     resultado = db_session.execute(user).scalar_one_or_none()
-#     return resultado
+@login_manager.user_loader
+def load_user(user_id):
+    user = select(Usuarios).where(Usuarios.id == int(user_id))
+    resultado = db_session.execute(user).scalar_one_or_none()
+    return resultado
 
 
 @app.route('/')
@@ -36,31 +39,23 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form.get("form_email")
-        senha = request.form.get("form_senha")
+    if request.method == "GET":
+        return render_template('login.html')
+    payload = {
+        "email": request.form.get("form_email"),
+        "senha": request.form.get("form_senha"),
+    }
+    resposta = requests.post(f"{API_URL}/login", json=payload)
 
-        if email and senha:
-            verificar_email = select(Usuarios).where(Usuarios.email == email)
-            resultado_email = db_session.execute(verificar_email).scalar_one_or_none()
+    if resposta.status_code == 200:
+        dados = resposta.json()
 
-            if resultado_email:
-                if resultado_email.check_password(senha):
-                    login_user(resultado_email)
-                    flash('Login efetuado com sucesso', 'success')
-                    print('Logado com sucesso')
-                    return redirect(url_for('dashboard'))
-                else:
-                    flash('Senha incorreta', 'alert-danger')
-                    return render_template('login.html')
-            else:
-                flash('Email não encontrado', 'alert-danger')
-                return render_template('login.html')
-        else:
-            flash('Preencha todos os campos', 'alert-danger')
-            return render_template('login.html')
-    else:
-        return redirect(url_for('dashboard'))
+        usuarios = Usuarios(dados["Usuario"])
+        login_user(usuarios)
+        flash("Login efetuado com sucesso", "success")
+        return redirect(url_for("dashboard_encomendas"))
+    flash("E-mail ou senha incorretos.", "danger")
+    return render_template("login.html")
 
 
 @app.route('/cadastrar', methods=['POST'])
@@ -71,16 +66,15 @@ def cadastrar():
         email = request.form.get("form_email")
         senha = request.form.get("form_senha")
 
-        usuario = Usuarios(
+        usuarios = Usuarios(
             nome=nome,
             cpf=cpf,
             email=email,
-            senha=senha,
+            senha_hash=senha,
         )
 
-        db_session.add(usuario)
+        db_session.add(usuarios)
         db_session.commit()
-
 
         return redirect(url_for("login"))
 
@@ -114,6 +108,7 @@ def galpoes():
         db_session.commit()
 
     return render_template('galpoes.html')
+
 
 @app.route('/blocos')
 def blocos():
