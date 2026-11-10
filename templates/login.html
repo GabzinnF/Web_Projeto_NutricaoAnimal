@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,7 +6,9 @@
     <title>Susten Nutri - Acesso ao Portal</title>
     <link rel="stylesheet" href="/static/css/style.css"/>
 </head>
+
 <body class="corpo_do_home">
+
 <div class="corpo_de_entrada">
 
     <div class="boas-vindas ao meu site BABYS">
@@ -15,34 +18,51 @@
     </div>
 
     <div class="colunas_de_login">
+
         <div class="card_de_autenticaçao">
+
             <h3>LOGIN</h3>
 
             <form action="{{ url_for('login') }}" method="POST">
+
                 <div class="campo-grupo">
                     <label>Email</label>
-                    <input id="form_email" type="text" placeholder="Exemplo@gmail.com">
+                    <input
+                        id="form_email"
+                        name="form_email"
+                        type="email"
+                        placeholder="Exemplo@gmail.com"
+                        required>
                 </div>
+
                 <div class="campo-grupo">
                     <label>Senha</label>
-                    <input id="form_senha" type="password" placeholder="••••••••" >
+                    <input
+                        id="form_senha"
+                        name="form_senha"
+                        type="password"
+                        placeholder="Digite sua senha"
+                        required>
                 </div>
-                <form>
-                    <button type="submit" class="btn-verde">Entrar</button>
-                </form>
-            </form>
-            <div class="text-center">
-            <p class="text-muted small">Não tem conta?
-                <a href="{{ url_for('home') }}">Cadastro</a>
-            </p>
-        </div>
 
+                <button type="submit" class="btn-verde">
+                    Entrar
+                </button>
+
+            </form>
+
+            <div class="text-center">
+                <p class="text-muted small">
+                    Não tem conta?
+                    <a href="{{ url_for('home') }}">Cadastro</a>
+                </p>
+            </div>
 
         </div>
 
     </div>
-</div>
 
+</div>
 
 </body>
 </html>

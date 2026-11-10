@@ -7,4 +7,11 @@
     <orderEntry type="jdk" jdkName="~\PycharmProjects\Web_Projeto_NutricaoAnimal\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/templates" />
+      </list>
+    </option>
+  </component>
 </module>

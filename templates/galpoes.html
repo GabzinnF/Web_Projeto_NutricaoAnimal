@@ -1,90 +1,300 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="area_cabeça">
+
     <div class="area_do_titulo">
         <h2>Gerenciamento de Galpões</h2>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+    <button type="button" class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">
+
         + ADICIONAR NOVO GALPÃO
+
     </button>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <!-- MODAL CADASTRO -->
+    <div class="modal fade" id="staticBackdrop"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1">
+
         <div class="modal-dialog">
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5">Novo Galpão</h1>
+
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
-                    <form class="card_login" action="{{ url_for('galpoes') }}" method="post">
+
+                    <form class="card_login"
+                          action="{{ url_for('galpoes') }}"
+                          method="post">
+
                         <div class="card_login">
+
                             <h1>NOVO GALPÃO</h1>
+
                             <label>
-                            Nome:
-                            <input id="input-nome" type="text" placeholder="Digite o nome do Galpão" name="form_nome"
-                                   class="form-control"><br></label>
-                            <label>
-                            Descrição:
-                            <input id="input-descricao" type="text" placeholder="Digite a Descrição" name="form_descricao"
-                                   class="form-control"
-                                   required><br></label>
-                            <button type="submit" class="btn btn-info">Cadastrar</button>
+                                Nome:
+
+                                <input type="text"
+                                       placeholder="Digite o nome do Galpão"
+                                       name="form_nome"
+                                       class="form-control"
+                                       required>
+                            </label>
 
                             <br>
+
+                            <label>
+                                Descrição:
+
+                                <input type="text"
+                                       placeholder="Digite a Descrição"
+                                       name="form_descricao"
+                                       class="form-control"
+                                       required>
+                            </label>
+
+                            <br>
+
+                            <label>
+                                Status:
+
+                                <select name="form_status"
+                                        class="form-control"
+                                        required>
+
+                                    <option value="Ativo">Ativo</option>
+
+                                    <option value="Desativado">Desativado</option>
+
+                                </select>
+
+                            </label>
+
+                            <br>
+
+                            <button type="submit" class="btn btn-info">
+                                Cadastrar
+                            </button>
+
                         </div>
+
                     </form>
+
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+
+                        Fechar
+
+                    </button>
+
                 </div>
+
             </div>
         </div>
     </div>
+
 </div>
 
+
+<!-- CARDS -->
 <div class="formaçao_dos_cards">
+
     <div class="card">
         <div class="card_titulo">Total Galpões</div>
-        <div class="card_valor">12</div>
+
+        <div class="card_valor">
+            {{ galpoes|length }}
+        </div>
     </div>
+
     <div class="card">
         <div class="card_titulo">Capacidade Total</div>
-        <div class="card_valor">48 blocos</div>
+
+        <div class="card_valor">
+            {{ total_blocos }} blocos
+        </div>
     </div>
-    <div class="card">
-        <div class="card_titulo">Alertas Ativos</div>
-        <div class="card_valor alerta-ativo-valor">2</div>
-    </div>
+
 </div>
 
+
+<!-- TABELA -->
 <div class="tabela">
+
     <table class="formato_tabela">
+
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>NOME DO GALPÃO</th>
-            <th>QTD. BLOCOS</th>
-            <th>STATUS</th>
-            <th>AÇÕES</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>NOME DO GALPÃO</th>
+                <th>DESCRIÇÃO</th>
+                <th>QTD. BLOCOS</th>
+                <th>STATUS</th>
+                <th>EDITAR</th>
+            </tr>
         </thead>
+
         <tbody>
-        <tr>
-            <td>#GLP-001</td>
-            <td>Galpão Norte Alfa</td>
-            <td>45</td>
-            <td><span class="badge badge-online">OPERACIONAL</span></td>
-            <td>Visualizar | Editar | Excluir</td>
-        </tr>
-        <tr>
-            <td>#GLP-002</td>
-            <td>Galpão Sul Beta</td>
-            <td>60</td>
-            <td><span class="badge badge-capacidade-alerta">MANUTENÇÃO</span></td>
-            <td>Visualizar | Editar | Excluir</td>
-        </tr>
+
+            {% for p in galpoes %}
+
+            <tr>
+
+                <td>{{ p.id }}</td>
+
+                <td>{{ p.nome }}</td>
+
+                <td>{{ p.descricao }}</td>
+
+                <td>{{ p.quantidade_blocos }}</td>
+
+                <td>
+
+                    {% if p.status == "Ativo" %}
+
+                        <span class="badge bg-success">
+                            Ativo
+                        </span>
+
+                    {% elif p.status == "Desativado" %}
+
+                        <span class="badge bg-danger">
+                            Desativado
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-secondary">
+                            {{ p.status or "Não informado" }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    <button type="button"
+                            class="btn btn-warning btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editar{{ p.id }}">
+
+                        Editar
+
+                    </button>
+
+                    <!-- MODAL EDITAR -->
+                    <div class="modal fade"
+                         id="editar{{ p.id }}"
+                         tabindex="-1">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title">
+                                        Editar Status do Galpão
+                                    </h5>
+
+                                    <button type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal">
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <form action="{{ url_for('galpoes') }}"
+                                          method="post">
+
+                                        <input type="hidden"
+                                               name="form_id_galpao_editar"
+                                               value="{{ p.id }}">
+
+                                        <label>
+                                            Galpão:
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               value="{{ p.nome }}"
+                                               disabled>
+
+                                        <br>
+
+                                        <label>
+                                            Status:
+                                        </label>
+
+                                        <select name="form_status"
+                                                class="form-control"
+                                                required>
+
+                                            <option value="Ativo"
+                                                {% if p.status == "Ativo" %}
+                                                    selected
+                                                {% endif %}>
+                                                Ativo
+                                            </option>
+
+                                            <option value="Desativado"
+                                                {% if p.status == "Desativado" %}
+                                                    selected
+                                                {% endif %}>
+                                                Desativado
+                                            </option>
+
+                                        </select>
+
+                                        <br>
+
+                                        <button type="submit"
+                                                class="btn btn-success">
+
+                                            Salvar Alteração
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
         </tbody>
+
     </table>
+
 </div>
+
 {% endblock %}
