@@ -49,13 +49,15 @@
                             <div class="ladolado">
                                 <label>
                                     Temperatura Max:
-                                    <input id="input-temperatura_max" type="number" placeholder="Digite a Temperatura Max"
+                                    <input id="input-temperatura_max" type="number"
+                                           placeholder="Digite a Temperatura Max"
                                            name="form_temperatura_max"
                                            class="form-control"
                                            required><br></label>
                                 <label>
                                     Temperatura Min:
-                                    <input id="input-temperatura_min" type="number" placeholder="Digite a Temperatura Min"
+                                    <input id="input-temperatura_min" type="number"
+                                           placeholder="Digite a Temperatura Min"
                                            name="form_temperatura_min"
                                            class="form-control"
                                            required><br></label>
@@ -87,43 +89,35 @@
 </div>
 
 <div class="tabela">
-    <table class="formato_tabela">
+    <table>
         <thead>
         <tr>
-            <th>NOME DO PRODUTO</th>
-            <th>CATEGORIA</th>
-            <th>TEMPERATURA MAX (°C)</th>
-            <th>UMIDADE MAX (%)</th>
-            <th>UMIDADE MIN (%)</th>
-            <th>TEMPERATURA MIN (°C)</th>
-            <th>ULTIMA ATUALIZAÇÃO</th>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
+            <th>Temperatura atual</th>
+            <th>Umidade atual</th>
         </tr>
         </thead>
+
         <tbody>
+        {% for insumo in insumos %}
         <tr>
-            <td>
-                <span class="insumo-bloco-nome">Milho em Grão (Lote A)</span>
-                <small class="id-pequeno">ID: INS-1001</small>
-            </td>
-            <td><span class="badge badge-graos">Grãos</span></td>
-            <td>25.0<br><small>Atual: 22.1</small></td>
-            <td>14.0<br><small>Atual: 12.5</small></td>
-            <td>11.0</td>
-            <td>11.0</td>
-            <td>24/10/2023</td>
+            <td>{{ insumo.id_insumo }}</td>
+            <td>{{ insumo.nome }}</td>
+            <td>{{ insumo.tipo }}</td>
+            <td>{{ insumo.quantidade }}</td>
+            <td>{{ insumo.unidade_medida }}</td>
+            <td>{{ insumo.temperatura_atual }}</td>
+            <td>{{ insumo.umidade_atual }}</td>
         </tr>
-        <tr class="linha-erro-tabela">
-            <td>
-                <span class="insumo-bloco-nome">Vitamina Premix B</span>
-                <small class="id-pequeno">ID: INS-3011</small>
-            </td>
-            <td><span class="badge badge-aditivos">Aditivos</span></td>
-            <td>22.0<br><small>Atual: 21.5</small></td>
-            <td class="insumo-erro-valor">60.0<br><small>Excedeu: 62.4</small></td>
-            <td>40.0</td>
-            <td>40.0</td>
-            <td>24/10/2023</td>
+        {% else %}
+        <tr>
+            <td colspan="7">Nenhum insumo cadastrado.</td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

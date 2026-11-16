@@ -530,3 +530,14 @@ body {
     gap: 12px;
 }
 
+
+.sensor-ativo {
+    color: #168a42;
+    font-weight: bold;
+}
+
+.sensor-inativo {
+    color: #d93636;
+    font-weight: bold;
+}
+

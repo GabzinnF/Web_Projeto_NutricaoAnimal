@@ -17,25 +17,58 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form class="card_login" action="{{ url_for('blocos') }}" method="post">
+
                         <div class="card_login">
+
                             <h1>NOVO BLOCO</h1>
 
-                            Nome:
-                            <input id="input-nome" type="text" placeholder="Digite o nome do Bloco" name="form_nome"
-                                   class="form-control"><br>
-                            <button type="submit" class="btn btn-info">Cadastrar</button>
+                            <label>Nome:</label>
+                            <input
+                                    type="text"
+                                    placeholder="Digite o nome do Bloco"
+                                    name="form_nome"
+                                    class="form-control"
+                                    required>
 
                             <br>
+
+                            <label>Galpão:</label>
+
+                            <select name="form_id_galpao" class="form-control" required>
+
+                                <option value="">Selecione um galpão</option>
+
+                                {% for galpao in galpoes %}
+                                <option value="{{ galpao.id }}">
+                                    {{ galpao.nome }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
+
+                            <br>
+
+                            <button type="submit" class="btn btn-info">
+                                Cadastrar
+                            </button>
+
                         </div>
+
                     </form>
+
+
+                    <br>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div class="formaçao_dos_cards">
@@ -54,42 +87,27 @@
 </div>
 
 <div class="tabela">
-    <table class="formato_tabela">
+    <table>
         <thead>
         <tr>
-            <th>ID BLOCO</th>
-            <th>NOME DO BLOCO</th>
-            <th>GALPÃO VINCULADO</th>
-            <th>QTD. SETORES</th>
-            <th>OCUPAÇÃO</th>
-            <th>STATUS</th>
+            <th>ID</th>
+            <th>Nome do bloco</th>
+            <th>ID do galpão</th>
         </tr>
         </thead>
+
         <tbody>
+        {% for bloco in blocos %}
         <tr>
-            <td>#BLC-01A</td>
-            <td><a class="link-bloco">Bloco A - Matéria Prima</a></td>
-            <td class="insumo-nome-tabela">Galpão Norte 01</td>
-            <td>3 Setores</td>
-            <td>85%</td>
-            <td><span class="badge badge-online">ESTÁVEL</span></td>
+            <td>{{ bloco.id_bloco }}</td>
+            <td>{{ bloco.nome }}</td>
+            <td>{{ bloco.id_galpao }}</td>
         </tr>
-        <tr class="linha-erro-tabela">
-            <td>#BLC-01B</td>
-            <td><a class="link-bloco">Bloco B - Aditivos Secos</a></td>
-            <td class="insumo-nome-tabela">Galpão Norte 01</td>
-            <td>4 Setores</td>
-            <td class="insumo-erro-valor">92%</td>
-            <td><span class="badge badge-capacidade-alerta">LIMITE</span></td>
-        </tr>
+        {% else %}
         <tr>
-            <td>#BLC-02A</td>
-            <td><a class="link-bloco">Bloco A - Macroingredientes</a></td>
-            <td class="insumo-nome-tabela">Galpão Sul Beta</td>
-            <td>2 Setores</td>
-            <td>45%</td>
-            <td><span class="badge badge-online">ESTÁVEL</span></td>
+            <td colspan="3">Nenhum bloco cadastrado.</td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

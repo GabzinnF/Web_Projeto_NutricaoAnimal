@@ -1,7 +1,7 @@
 
 import requests
 
-API_URL = "http://10.135.232.25:5000"
+API_URL = "http://10.135.232.34:5000"
 
 
 def consultar_api(endpoint):
@@ -11,16 +11,9 @@ def consultar_api(endpoint):
 
 
 def login_usuario(email, senha):
-    dados = {
-        "email": email,
-        "senha": senha
-    }
+    dados = {"email": email, "senha": senha}
 
-    resposta = requests.post(
-        f"{API_URL}/login",
-        json=dados,
-        timeout=10
-    )
+    resposta = requests.post(f"{API_URL}/login", json=dados, timeout=10)
 
     return resposta.json(), resposta.status_code
 

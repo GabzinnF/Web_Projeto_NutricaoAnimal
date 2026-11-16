@@ -1,89 +1,179 @@
+
+
+
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="area_cabeça">
+
     <div class="area_do_titulo">
         <h2>Dashboard de Monitoramento Geral</h2>
-        <p>Visão em tempo real das métricas críticas de produção.</p>
+        <p>Visão geral do monitoramento dos insumos.</p>
     </div>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="card_login" action="{{ url_for('dashboard') }}" method="post">
-                        <div class="card_login">
-                            <h1>Atualização de Dashboard</h1>
-                            <label>
-                            Nome:
-                            <input id="input-nome" type="text" placeholder="Digite o nome do Insumo" name="form_nome"
-                                   class="form-control"><br></label>
-                            <label>
-                            Descrição:
-                            <input id="input-cargo" type="text" placeholder="Digite a Descrição" name="form_cargo"
-                                   class="form-control"
-                                   required><br></label>
-                            <button type="submit" class="btn btn-info">Cadastrar</button>
 
-                            <br>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
+<meta http-equiv="refresh" content="15">
 <div class="formaçao_dos_cards">
+
     <div class="card">
-        <div class="card_titulo">Temperatura Média</div>
-        <div class="card_valor">24.5°C</div>
+        <h3>Galpões</h3>
+        <h2>{{ total_galpoes }}</h2>
     </div>
+
     <div class="card">
-        <div class="card_titulo">Umidade Relativa</div>
-        <div class="card_valor">62%</div>
+        <h3>Blocos</h3>
+        <h2>{{ total_blocos }}</h2>
     </div>
+
     <div class="card">
-        <div class="card_titulo">Sensores Ativos</div>
-        <div class="card_valor">142/145</div>
+        <h3>Insumos</h3>
+        <h2>{{ total_insumos }}</h2>
     </div>
+
     <div class="card">
-        <div class="card_titulo">Status Produção</div>
-        <div class="card_valor" style="color: green; font-size: 20px;">Em Processamento</div>
+        <h3>Sensores</h3>
+        <h2>{{ total_sensores }}</h2>
     </div>
+
+    <div class="card">
+        <h3>Alertas</h3>
+        <h2>{{ total_alertas }}</h2>
+    </div>
+
+    <div class="card">
+        <h3>Leituras</h3>
+        <h2>{{ total_leituras }}</h2>
+    </div>
+
 </div>
+
 
 <div class="tabela">
+
+    <div class="card">
+        <div class="card_titulo">Galpões</div>
+        <div class="card_valor">{{ galpoes|length }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Blocos</div>
+        <div class="card_valor">{{ blocos|length }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Setores</div>
+        <div class="card_valor">{{ setores|length }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Insumos</div>
+        <div class="card_valor">{{ insumos|length }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Sensores</div>
+        <div class="card_valor">{{ sensores|length }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Leituras</div>
+        <div class="card_valor">{{ leituras|length }}</div>
+    </div>
+
+</div>
+
+
+<h3>Últimas leituras</h3>
+
+<div class="tabela">
+
     <table class="formato_tabela">
+
         <thead>
         <tr>
-            <th>Severidade</th>
-            <th>Horário</th>
-            <th>Local</th>
-            <th>Descrição</th>
+            <th>Sensor</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Data e hora</th>
         </tr>
         </thead>
+
         <tbody>
+
+        {% for leitura in leituras[-10:]|reverse %}
+
         <tr>
-            <td><span class="badge badge-warning">ATENÇÃO</span></td>
-            <td>10:42 AM</td>
-            <td><strong>Galpão 03 - Setor B</strong></td>
-            <td>Umidade acima do limite ideal (65%).</td>
+            <td>{{ leitura.id_sensor }}</td>
+            <td>{{ leitura.tipo_leitura }}</td>
+            <td>{{ leitura.valor_leitura }}</td>
+            <td>{{ leitura.data_hora }}</td>
         </tr>
+
+        {% else %}
+
         <tr>
-            <td><span class="badge badge-danger">CRÍTICO</span></td>
-            <td>09:15 AM</td>
-            <td><strong>Silo Principal 01</strong></td>
-            <td>Falha de comunicação com o sensor térmico.</td>
+            <td colspan="4">Nenhuma leitura cadastrada.</td>
         </tr>
+
+        {% endfor %}
+
         </tbody>
+
     </table>
+
 </div>
+
+
+<h3>Últimos alertas</h3>
+
+<div class="tabela">
+
+    <table class="formato_tabela">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for alerta in alertas[-10:]|reverse %}
+
+        <tr>
+            <td>{{ alerta.id_alerta }}</td>
+            <td>{{ alerta.valor_registrado }}</td>
+
+            <td>
+                {% if alerta.tipo_alerta == 1 %}
+                    Temperatura
+                {% elif alerta.tipo_alerta == 2 %}
+                    Umidade
+                {% else %}
+                    Outro
+                {% endif %}
+            </td>
+
+            <td>{{ alerta.status_ }}</td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="4">Nenhum alerta registrado.</td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
 {% endblock %}

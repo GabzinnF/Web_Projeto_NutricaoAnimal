@@ -17,22 +17,37 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form class="card_login" action="{{ url_for('sensores') }}" method="post">
+
                         <div class="card_login">
+
                             <h1>NOVO SENSOR</h1>
-                            <label>
-                            Nome:
-                            <input id="input-nome" type="text" placeholder="Digite o nome do Sensor" name="form_nome"
-                                   class="form-control"><br></label>
-                            <label>
-                            capacidade:
-                            <input id="input-capacidade" type="number" placeholder="Digite a Capacidade" name="form_capacidade"
-                                   class="form-control"
-                                   required><br></label>
-                            <button type="submit" class="btn btn-info">Cadastrar</button>
+
+                            <label>Setor:</label>
+
+                            <select name="form_id_setor" class="form-control" required>
+
+                                <option value="">Selecione um setor</option>
+
+                                {% for setor in setores %}
+                                <option value="{{ setor.id_setor }}">
+                                    {{ setor.nome }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
 
                             <br>
+
+                            <button type="submit" class="btn btn-info">
+                                Cadastrar Sensor
+                            </button>
+
                         </div>
+
+                    </form>
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -51,35 +66,41 @@
 </div>
 
 <div class="tabela">
-    <table class="formato_tabela">
-        <thead>
-            <tr>
-                <th>ID SENSOR</th>
-                <th>TIPO</th>
-                <th>SETOR VINCULADO (DER)</th>
-                <th>DATA DE INSTALAÇÃO</th>
-                <th>STATUS</th>
-                <th>AÇÕES</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="id-sensor-mono">SN-TMP-1042</td>
-                <td class="sensor-nome-tabela">Temperatura</td>
-                <td>Mistura A - Linha 1</td>
-                <td>12/Oct/2023</td>
-                <td><span class="badge badge-online">ONLINE</span></td>
-                <td>Editar | Desvincular</td>
-            </tr>
-            <tr>
-                <td class="id-sensor-mono">SN-UMD-2015</td>
-                <td class="sensor-nome-tabela">Umidade</td>
-                <td>Armazém de Grãos Sul</td>
-                <td>05/Nov/2023</td>
-                <td><span class="badge badge-online">ONLINE</span></td>
-                <td>Editar | Desvincular</td>
-            </tr>
-        </tbody>
-    </table>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sensor</th>
+            <th>Tipo de leitura</th>
+            <th>Valor</th>
+            <th>Data e hora</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for leitura in leituras %}
+        <tr>
+            <td>{{ leitura.id_leitura }}</td>
+
+            <td>{{ leitura.id_sensor }}</td>
+
+            <td>{{ leitura.tipo_leitura }}</td>
+
+            <td>{{ leitura.valor_leitura }}</td>
+
+            <td>{{ leitura.data_hora }}</td>
+        </tr>
+
+        {% else %}
+        <tr>
+            <td colspan="5">Nenhuma leitura registrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
 </div>
 {% endblock %}
