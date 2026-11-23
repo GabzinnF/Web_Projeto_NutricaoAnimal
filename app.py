@@ -1,13 +1,7 @@
-
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from functools import wraps
 import requests
-
-from routes import (
-    login_usuario, get_galpoes, get_bloco, get_setor, get_insumo,
-    get_sensor, get_leitura, get_alertas, post_galpao, put_galpao,
-    post_bloco, post_setor, post_insumo, post_sensor, cadastrar_usuario
-)
+from routes import (login_usuario, get_galpoes, get_bloco, get_setor, get_insumo, get_sensor, get_leitura, get_alertas, post_galpao, put_galpao, post_bloco, post_setor, post_insumo, post_sensor, cadastrar_usuario)
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "leite_gato"
@@ -28,10 +22,8 @@ def login_required(f):
 def pegar_lista(dados, chave):
     if isinstance(dados, dict):
         return dados.get(chave, [])
-
     if isinstance(dados, list):
         return dados
-
     return []
 
 
@@ -49,11 +41,9 @@ def carregar_dados():
 
 def verificar_cadastro(resultado):
     dados, status = resultado
-
     if status in [200, 201]:
         flash(dados.get("msg", "Cadastro realizado!"), "success")
         return True
-
     flash(dados.get("msg", "Não foi possível realizar o cadastro."), "danger")
     return False
 
@@ -144,18 +134,7 @@ def dashboard():
     try:
         dados = carregar_dados()
 
-        return render_template(
-            "dashboard.html",
-            usuario=session["usuario_logado"],
-            total_galpoes=len(dados["galpoes"]),
-            total_blocos=len(dados["blocos"]),
-            total_setores=len(dados["setores"]),
-            total_insumos=len(dados["insumos"]),
-            total_sensores=len(dados["sensores"]),
-            total_alertas=len(dados["alertas"]),
-            total_leituras=len(dados["leituras"]),
-            **dados
-        )
+        return render_template("dashboard.html", usuario=session["usuario_logado"], total_galpoes=len(dados["galpoes"]), total_blocos=len(dados["blocos"]), total_setores=len(dados["setores"]), total_insumos=len(dados["insumos"]), total_sensores=len(dados["sensores"]), total_alertas=len(dados["alertas"]), total_leituras=len(dados["leituras"]), **dados)
 
     except requests.exceptions.RequestException:
         flash("Não foi possível atualizar os dados.", "danger")
