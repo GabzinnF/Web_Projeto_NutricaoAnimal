@@ -1,106 +1,95 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
 {% block content %}
+
 <div class="area_cabeça">
     <div class="area_do_titulo">
         <h2>Gerenciamento de Sensores</h2>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        + Vincular Sensor
+
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoSensor">
+        + Vincular sensor
     </button>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+</div>
 
-                    <form class="card_login" action="{{ url_for('sensores') }}" method="post">
+<div class="modal fade" id="novoSensor" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                        <div class="card_login">
-
-                            <h1>NOVO SENSOR</h1>
-
-                            <label>Setor:</label>
-
-                            <select name="form_id_setor" class="form-control" required>
-
-                                <option value="">Selecione um setor</option>
-
-                                {% for setor in setores %}
-                                <option value="{{ setor.id_setor }}">
-                                    {{ setor.nome }}
-                                </option>
-                                {% endfor %}
-
-                            </select>
-
-                            <br>
-
-                            <button type="submit" class="btn btn-info">
-                                Cadastrar Sensor
-                            </button>
-
-                        </div>
-
-                    </form>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                </div>
+            <div class="modal-header">
+                <h5>Vincular sensor</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('sensores') }}" method="post">
+
+                    <label>Setor</label>
+                    <select class="form-control mb-3" name="form_id_setor" required>
+                        <option value="">Selecione um setor</option>
+
+                        {% for setor in setores %}
+                        <option value="{{ setor.id_setor }}">{{ setor.nome }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-success">Cadastrar sensor</button>
+
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
 
-<div class="container-centralizado-card">
-    <div class="card card-largura-fixa">
-        <div class="card_titulo">Total Ativos</div>
-        <div class="card_valor">142</div>
+<div class="formaçao_dos_cards">
+    <div class="card">
+        <div class="card_titulo">Total de sensores</div>
+        <div class="card_valor">{{ sensores|length }}</div>
     </div>
 </div>
 
 <div class="tabela">
+    <table class="formato_tabela">
 
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Setor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Sensor</th>
-            <th>Tipo de leitura</th>
-            <th>Valor</th>
-            <th>Data e hora</th>
-        </tr>
-    </thead>
+        <tbody>
+            {% for sensor in sensores %}
+            <tr>
+                <td>{{ sensor.id_sensor }}</td>
 
-    <tbody>
-        {% for leitura in leituras %}
-        <tr>
-            <td>{{ leitura.id_leitura }}</td>
+                <td>
+                    {% for setor in setores %}
+                        {% if setor.id_setor == sensor.id_setor %}
+                            {{ setor.nome }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
 
-            <td>{{ leitura.id_sensor }}</td>
+                <td>
+                    {% if sensor.status_sensor == 'Ativo' %}
+                        <span class="sensor-ativo">Ativo</span>
+                    {% else %}
+                        <span class="sensor-inativo">Inativo</span>
+                    {% endif %}
+                </td>
+            </tr>
 
-            <td>{{ leitura.tipo_leitura }}</td>
+            {% else %}
+            <tr>
+                <td colspan="3">Nenhum sensor cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
-            <td>{{ leitura.valor_leitura }}</td>
-
-            <td>{{ leitura.data_hora }}</td>
-        </tr>
-
-        {% else %}
-        <tr>
-            <td colspan="5">Nenhuma leitura registrada.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-
+    </table>
 </div>
+
 {% endblock %}

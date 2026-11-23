@@ -1,179 +1,118 @@
 
-
-
 {% extends 'base.html' %}
 
 {% block content %}
 
 <div class="area_cabeça">
-
     <div class="area_do_titulo">
-        <h2>Dashboard de Monitoramento Geral</h2>
-        <p>Visão geral do monitoramento dos insumos.</p>
+        <h2>Dashboard de Monitoramento</h2>
+        <p>Visão geral dos insumos e equipamentos.</p>
     </div>
 
+    <span>Olá, {{ usuario.nome }}</span>
 </div>
 
-<meta http-equiv="refresh" content="15">
 <div class="formaçao_dos_cards">
 
     <div class="card">
-        <h3>Galpões</h3>
-        <h2>{{ total_galpoes }}</h2>
-    </div>
-
-    <div class="card">
-        <h3>Blocos</h3>
-        <h2>{{ total_blocos }}</h2>
-    </div>
-
-    <div class="card">
-        <h3>Insumos</h3>
-        <h2>{{ total_insumos }}</h2>
-    </div>
-
-    <div class="card">
-        <h3>Sensores</h3>
-        <h2>{{ total_sensores }}</h2>
-    </div>
-
-    <div class="card">
-        <h3>Alertas</h3>
-        <h2>{{ total_alertas }}</h2>
-    </div>
-
-    <div class="card">
-        <h3>Leituras</h3>
-        <h2>{{ total_leituras }}</h2>
-    </div>
-
-</div>
-
-
-<div class="tabela">
-
-    <div class="card">
         <div class="card_titulo">Galpões</div>
-        <div class="card_valor">{{ galpoes|length }}</div>
+        <div class="card_valor">{{ total_galpoes }}</div>
     </div>
 
     <div class="card">
         <div class="card_titulo">Blocos</div>
-        <div class="card_valor">{{ blocos|length }}</div>
+        <div class="card_valor">{{ total_blocos }}</div>
     </div>
 
     <div class="card">
         <div class="card_titulo">Setores</div>
-        <div class="card_valor">{{ setores|length }}</div>
+        <div class="card_valor">{{ total_setores }}</div>
     </div>
 
     <div class="card">
         <div class="card_titulo">Insumos</div>
-        <div class="card_valor">{{ insumos|length }}</div>
+        <div class="card_valor">{{ total_insumos }}</div>
     </div>
 
     <div class="card">
         <div class="card_titulo">Sensores</div>
-        <div class="card_valor">{{ sensores|length }}</div>
+        <div class="card_valor">{{ total_sensores }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card_titulo">Alertas</div>
+        <div class="card_valor">{{ total_alertas }}</div>
     </div>
 
     <div class="card">
         <div class="card_titulo">Leituras</div>
-        <div class="card_valor">{{ leituras|length }}</div>
+        <div class="card_valor">{{ total_leituras }}</div>
     </div>
 
 </div>
 
-
 <h3>Últimas leituras</h3>
 
 <div class="tabela">
-
     <table class="formato_tabela">
-
         <thead>
-        <tr>
-            <th>Sensor</th>
-            <th>Tipo</th>
-            <th>Valor</th>
-            <th>Data e hora</th>
-        </tr>
+            <tr>
+                <th>Sensor</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data e hora</th>
+            </tr>
         </thead>
 
         <tbody>
-
-        {% for leitura in leituras[-10:]|reverse %}
-
-        <tr>
-            <td>{{ leitura.id_sensor }}</td>
-            <td>{{ leitura.tipo_leitura }}</td>
-            <td>{{ leitura.valor_leitura }}</td>
-            <td>{{ leitura.data_hora }}</td>
-        </tr>
-
-        {% else %}
-
-        <tr>
-            <td colspan="4">Nenhuma leitura cadastrada.</td>
-        </tr>
-
-        {% endfor %}
-
+            {% for leitura in leituras[-10:]|reverse %}
+            <tr>
+                <td>{{ leitura.id_sensor }}</td>
+                <td>{{ leitura.tipo_leitura }}</td>
+                <td>{{ leitura.valor_leitura }}</td>
+                <td>{{ leitura.data_hora }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">Nenhuma leitura cadastrada.</td>
+            </tr>
+            {% endfor %}
         </tbody>
-
     </table>
-
 </div>
 
-
-<h3>Últimos alertas</h3>
+<h3 class="mt-4">Últimos alertas</h3>
 
 <div class="tabela">
-
     <table class="formato_tabela">
-
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Valor</th>
-            <th>Tipo</th>
-            <th>Status</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Setor</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Status</th>
+            </tr>
         </thead>
 
         <tbody>
-
-        {% for alerta in alertas[-10:]|reverse %}
-
-        <tr>
-            <td>{{ alerta.id_alerta }}</td>
-            <td>{{ alerta.valor_registrado }}</td>
-
-            <td>
-                {% if alerta.tipo_alerta == 1 %}
-                    Temperatura
-                {% elif alerta.tipo_alerta == 2 %}
-                    Umidade
-                {% else %}
-                    Outro
-                {% endif %}
-            </td>
-
-            <td>{{ alerta.status_ }}</td>
-        </tr>
-
-        {% else %}
-
-        <tr>
-            <td colspan="4">Nenhum alerta registrado.</td>
-        </tr>
-
-        {% endfor %}
-
+            {% for alerta in alertas[-10:]|reverse %}
+            <tr>
+                <td>{{ alerta.id_alerta }}</td>
+                <td>{{ alerta.nome_setor }}</td>
+                <td>{{ alerta.valor_registrado }}</td>
+                <td>{{ alerta.tipo_leitura }}</td>
+                <td>{{ alerta.status_ }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">Nenhum alerta registrado.</td>
+            </tr>
+            {% endfor %}
         </tbody>
-
     </table>
-
 </div>
+
+<meta http-equiv="refresh" content="15">
 
 {% endblock %}

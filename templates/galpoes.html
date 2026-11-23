@@ -1,300 +1,135 @@
 
 {% extends 'base.html' %}
-
 {% block content %}
 
 <div class="area_cabeça">
-
     <div class="area_do_titulo">
         <h2>Gerenciamento de Galpões</h2>
     </div>
 
-    <button type="button" class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop">
-
-        + ADICIONAR NOVO GALPÃO
-
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoGalpao">
+        + Novo galpão
     </button>
+</div>
 
-    <!-- MODAL CADASTRO -->
-    <div class="modal fade" id="staticBackdrop"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         tabindex="-1">
+<div class="modal fade" id="novoGalpao" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5">Novo Galpão</h1>
-
-                    <button type="button" class="btn-close"
-                            data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-
-                    <form class="card_login"
-                          action="{{ url_for('galpoes') }}"
-                          method="post">
-
-                        <div class="card_login">
-
-                            <h1>NOVO GALPÃO</h1>
-
-                            <label>
-                                Nome:
-
-                                <input type="text"
-                                       placeholder="Digite o nome do Galpão"
-                                       name="form_nome"
-                                       class="form-control"
-                                       required>
-                            </label>
-
-                            <br>
-
-                            <label>
-                                Descrição:
-
-                                <input type="text"
-                                       placeholder="Digite a Descrição"
-                                       name="form_descricao"
-                                       class="form-control"
-                                       required>
-                            </label>
-
-                            <br>
-
-                            <label>
-                                Status:
-
-                                <select name="form_status"
-                                        class="form-control"
-                                        required>
-
-                                    <option value="Ativo">Ativo</option>
-
-                                    <option value="Desativado">Desativado</option>
-
-                                </select>
-
-                            </label>
-
-                            <br>
-
-                            <button type="submit" class="btn btn-info">
-                                Cadastrar
-                            </button>
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-danger"
-                            data-bs-dismiss="modal">
-
-                        Fechar
-
-                    </button>
-
-                </div>
-
+            <div class="modal-header">
+                <h5>Novo galpão</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('galpoes') }}" method="post">
+
+                    <label>Nome</label>
+                    <input class="form-control mb-3" name="form_nome" required>
+
+                    <label>Descrição</label>
+                    <input class="form-control mb-3" name="form_descricao" required>
+
+                    <label>Status</label>
+                    <select class="form-control mb-3" name="form_status">
+                        <option>Ativo</option>
+                        <option>Desativado</option>
+                    </select>
+
+                    <button class="btn btn-success">Cadastrar</button>
+                </form>
+            </div>
+
         </div>
     </div>
-
 </div>
 
-
-<!-- CARDS -->
 <div class="formaçao_dos_cards">
-
     <div class="card">
-        <div class="card_titulo">Total Galpões</div>
-
-        <div class="card_valor">
-            {{ galpoes|length }}
-        </div>
+        <div class="card_titulo">Total de galpões</div>
+        <div class="card_valor">{{ galpoes|length }}</div>
     </div>
 
     <div class="card">
-        <div class="card_titulo">Capacidade Total</div>
-
-        <div class="card_valor">
-            {{ total_blocos }} blocos
-        </div>
+        <div class="card_titulo">Total de blocos</div>
+        <div class="card_valor">{{ total_blocos }}</div>
     </div>
-
 </div>
 
-
-<!-- TABELA -->
 <div class="tabela">
-
     <table class="formato_tabela">
 
         <thead>
             <tr>
                 <th>ID</th>
-                <th>NOME DO GALPÃO</th>
-                <th>DESCRIÇÃO</th>
-                <th>QTD. BLOCOS</th>
-                <th>STATUS</th>
-                <th>EDITAR</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Blocos</th>
+                <th>Status</th>
+                <th>Editar</th>
             </tr>
         </thead>
 
         <tbody>
-
             {% for p in galpoes %}
-
             <tr>
-
                 <td>{{ p.id }}</td>
-
                 <td>{{ p.nome }}</td>
-
                 <td>{{ p.descricao }}</td>
-
                 <td>{{ p.quantidade_blocos }}</td>
+                <td>{{ p.status }}</td>
 
                 <td>
-
-                    {% if p.status == "Ativo" %}
-
-                        <span class="badge bg-success">
-                            Ativo
-                        </span>
-
-                    {% elif p.status == "Desativado" %}
-
-                        <span class="badge bg-danger">
-                            Desativado
-                        </span>
-
-                    {% else %}
-
-                        <span class="badge bg-secondary">
-                            {{ p.status or "Não informado" }}
-                        </span>
-
-                    {% endif %}
-
-                </td>
-
-                <td>
-
-                    <button type="button"
-                            class="btn btn-warning btn-sm"
+                    <button class="btn btn-warning btn-sm"
                             data-bs-toggle="modal"
                             data-bs-target="#editar{{ p.id }}">
-
                         Editar
-
                     </button>
 
-                    <!-- MODAL EDITAR -->
-                    <div class="modal fade"
-                         id="editar{{ p.id }}"
-                         tabindex="-1">
-
+                    <div class="modal fade" id="editar{{ p.id }}" tabindex="-1">
                         <div class="modal-dialog">
-
                             <div class="modal-content">
 
                                 <div class="modal-header">
-
-                                    <h5 class="modal-title">
-                                        Editar Status do Galpão
-                                    </h5>
-
-                                    <button type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal">
-                                    </button>
-
+                                    <h5>Editar status</h5>
+                                    <button class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
 
                                 <div class="modal-body">
-
-                                    <form action="{{ url_for('galpoes') }}"
-                                          method="post">
+                                    <form action="{{ url_for('galpoes') }}" method="post">
 
                                         <input type="hidden"
                                                name="form_id_galpao_editar"
                                                value="{{ p.id }}">
 
-                                        <label>
-                                            Galpão:
-                                        </label>
+                                        <label>Galpão</label>
+                                        <input class="form-control mb-3"
+                                               value="{{ p.nome }}" disabled>
 
-                                        <input type="text"
-                                               class="form-control"
-                                               value="{{ p.nome }}"
-                                               disabled>
-
-                                        <br>
-
-                                        <label>
-                                            Status:
-                                        </label>
-
-                                        <select name="form_status"
-                                                class="form-control"
-                                                required>
-
-                                            <option value="Ativo"
-                                                {% if p.status == "Ativo" %}
-                                                    selected
-                                                {% endif %}>
-                                                Ativo
-                                            </option>
-
-                                            <option value="Desativado"
-                                                {% if p.status == "Desativado" %}
-                                                    selected
-                                                {% endif %}>
-                                                Desativado
-                                            </option>
-
+                                        <label>Status</label>
+                                        <select class="form-control mb-3" name="form_status">
+                                            <option value="Ativo" {% if p.status == 'Ativo' %}selected{% endif %}>Ativo</option>
+                                            <option value="Desativado" {% if p.status == 'Desativado' %}selected{% endif %}>Desativado</option>
                                         </select>
 
-                                        <br>
-
-                                        <button type="submit"
-                                                class="btn btn-success">
-
-                                            Salvar Alteração
-
-                                        </button>
-
+                                        <button class="btn btn-success">Salvar</button>
                                     </form>
-
                                 </div>
 
                             </div>
-
                         </div>
-
                     </div>
-
                 </td>
-
             </tr>
 
+            {% else %}
+            <tr>
+                <td colspan="6">Nenhum galpão cadastrado.</td>
+            </tr>
             {% endfor %}
-
         </tbody>
 
     </table>
-
 </div>
 
 {% endblock %}

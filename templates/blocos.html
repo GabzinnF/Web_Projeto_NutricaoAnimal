@@ -1,114 +1,90 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
 {% block content %}
+
 <div class="area_cabeça">
     <div class="area_do_titulo">
         <h2>Gerenciamento de Blocos</h2>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        + CADASTRAR BLOCO
+
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoBloco">
+        + Cadastrar bloco
     </button>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+</div>
 
-                    <form class="card_login" action="{{ url_for('blocos') }}" method="post">
+<div class="modal fade" id="novoBloco" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                        <div class="card_login">
+            <div class="modal-header">
+                <h5>Novo bloco</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-                            <h1>NOVO BLOCO</h1>
+            <div class="modal-body">
+                <form action="{{ url_for('blocos') }}" method="post">
 
-                            <label>Nome:</label>
-                            <input
-                                    type="text"
-                                    placeholder="Digite o nome do Bloco"
-                                    name="form_nome"
-                                    class="form-control"
-                                    required>
+                    <label>Nome</label>
+                    <input class="form-control mb-3" name="form_nome" required>
 
-                            <br>
+                    <label>Galpão</label>
+                    <select class="form-control mb-3" name="form_id_galpao" required>
+                        <option value="">Selecione um galpão</option>
 
-                            <label>Galpão:</label>
+                        {% for galpao in galpoes %}
+                        <option value="{{ galpao.id }}">{{ galpao.nome }}</option>
+                        {% endfor %}
+                    </select>
 
-                            <select name="form_id_galpao" class="form-control" required>
-
-                                <option value="">Selecione um galpão</option>
-
-                                {% for galpao in galpoes %}
-                                <option value="{{ galpao.id }}">
-                                    {{ galpao.nome }}
-                                </option>
-                                {% endfor %}
-
-                            </select>
-
-                            <br>
-
-                            <button type="submit" class="btn btn-info">
-                                Cadastrar
-                            </button>
-
-                        </div>
-
-                    </form>
-
-
-                    <br>
-                </div>
+                    <button class="btn btn-success">Cadastrar</button>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-            </div>
+
         </div>
     </div>
-</div>
 </div>
 
 <div class="formaçao_dos_cards">
     <div class="card">
-        <div class="card_titulo">Total de Blocos</div>
-        <div class="card_valor">48</div>
-    </div>
-    <div class="card">
-        <div class="card_titulo">Ocupação Média</div>
-        <div class="card_valor">74%</div>
-    </div>
-    <div class="card">
-        <div class="card_titulo">Blocos Críticos</div>
-        <div class="card_valor alerta-ativo-valor">3</div>
+        <div class="card_titulo">Total de blocos</div>
+        <div class="card_valor">{{ blocos|length }}</div>
     </div>
 </div>
 
 <div class="tabela">
-    <table>
+    <table class="formato_tabela">
+
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome do bloco</th>
-            <th>ID do galpão</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome do bloco</th>
+                <th>Galpão</th>
+            </tr>
         </thead>
 
         <tbody>
-        {% for bloco in blocos %}
-        <tr>
-            <td>{{ bloco.id_bloco }}</td>
-            <td>{{ bloco.nome }}</td>
-            <td>{{ bloco.id_galpao }}</td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="3">Nenhum bloco cadastrado.</td>
-        </tr>
-        {% endfor %}
+            {% for bloco in blocos %}
+            <tr>
+                <td>{{ bloco.id_bloco }}</td>
+                <td>{{ bloco.nome }}</td>
+
+                <td>
+                    {% for galpao in galpoes %}
+                        {% if galpao.id == bloco.id_galpao %}
+                            {{ galpao.nome }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+
+            {% else %}
+            <tr>
+                <td colspan="3">Nenhum bloco cadastrado.</td>
+            </tr>
+            {% endfor %}
         </tbody>
+
     </table>
 </div>
+
 {% endblock %}

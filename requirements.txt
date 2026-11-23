@@ -1,0 +1,6 @@
+Flask
+requests
+SQLAlchemy
+PyMySQL
+Flask-JWT-Extended
+Werkzeug

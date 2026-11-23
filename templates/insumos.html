@@ -1,124 +1,104 @@
+
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="area_cabeça" xmlns="http://www.w3.org/1999/html">
-    <div class="area_do_titulo">
-        <h2>Controle de Insumos </h2>
-    </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        + Novo Insumo
-    </button>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="card_login" action="{{ url_for('insumos') }}" method="post">
-                        <div class="card_login1">
-                            <h1>NOVO INSUMO</h1>
-                            <label>
-                                Tipo:
-                                <input id="input_tipo" type="text" placeholder="Digite o Tipo de Insumo"
-                                       name="form_tipo"
-                                       class="form-control"
-                                       required><br></label>
-                            <label>
-                                Nome:
-                                <input id="input-nome" type="text" placeholder="Digite o Nome do Insumo"
-                                       name="form_nome"
-                                       class="form-control"><br></label>
-                            <div class="ladolado">
-                                <label>
-                                    Umidade Max:
-                                    <input id="input-umidade_max" type="number" placeholder="Digite a Umidade Max"
-                                           name="form_umidade_max"
-                                           class="form-control"
-                                           required><br></label>
-                                <label>
-                                    Umidade Min:
-                                    <input id="input-umidade_min" type="number" placeholder="Digite a Umidade Min"
-                                           name="form_umidade_min"
-                                           class="form-control"
-                                           required><br></label>
-                            </div>
-                            <br>
-                            <div class="ladolado">
-                                <label>
-                                    Temperatura Max:
-                                    <input id="input-temperatura_max" type="number"
-                                           placeholder="Digite a Temperatura Max"
-                                           name="form_temperatura_max"
-                                           class="form-control"
-                                           required><br></label>
-                                <label>
-                                    Temperatura Min:
-                                    <input id="input-temperatura_min" type="number"
-                                           placeholder="Digite a Temperatura Min"
-                                           name="form_temperatura_min"
-                                           class="form-control"
-                                           required><br></label>
-                            </div>
-                            <label>
-                                Quantidade:
-                                <input id="input-quantidade" type="number" placeholder="Digite a Quantidade"
-                                       name="form_quantidade"
-                                       class="form-control"
-                                       required><br></label>
-                            <label>
-                                Unidade de Medida:
-                                <input id="input-unidade_medida" type="text" placeholder="Digite a Unidade de Medida"
-                                       name="form_unidade_medida"
-                                       class="form-control"
-                                       required><br></label>
-                            <button type="submit" class="btn btn-info">Cadastrar Insumo</button>
 
-                            <br>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                </div>
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Controle de Insumos</h2>
+    </div>
+
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoInsumo">
+        + Novo insumo
+    </button>
+</div>
+
+<div class="modal fade" id="novoInsumo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5>Novo insumo</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <div class="modal-body">
+                <form action="{{ url_for('insumos') }}" method="post">
+
+                    <label>Nome</label>
+                    <input class="form-control mb-2" name="form_nome" required>
+
+                    <label>Tipo</label>
+                    <input class="form-control mb-2" name="form_tipo" required>
+
+                    <label>Umidade mínima (%)</label>
+                    <input class="form-control mb-2" type="number" step="0.01" name="form_umidade_min" required>
+
+                    <label>Umidade máxima (%)</label>
+                    <input class="form-control mb-2" type="number" step="0.01" name="form_umidade_max" required>
+
+                    <label>Temperatura mínima</label>
+                    <input class="form-control mb-2" type="number" step="0.01" name="form_temperatura_min" required>
+
+                    <label>Temperatura máxima</label>
+                    <input class="form-control mb-2" type="number" step="0.01" name="form_temperatura_max" required>
+
+                    <label>Quantidade total</label>
+                    <input class="form-control mb-2" type="number" step="0.01" min="0" name="form_quantidade" required>
+
+                    <label>Unidade de medida</label>
+                    <select class="form-control mb-3" name="form_unidade_medida" required>
+                        <option value="">Selecione</option>
+                        <option>Toneladas</option>
+                        <option>Quilogramas</option>
+                        <option>Litros</option>
+                        <option>Sacos</option>
+                        <option>Unidades</option>
+                    </select>
+
+                    <button class="btn btn-success">Cadastrar insumo</button>
+
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
 
 <div class="tabela">
-    <table>
+    <table class="formato_tabela">
+
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Quantidade</th>
-            <th>Unidade</th>
-            <th>Temperatura atual</th>
-            <th>Umidade atual</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Unidade</th>
+                <th>Temperatura atual</th>
+                <th>Umidade atual</th>
+            </tr>
         </thead>
 
         <tbody>
-        {% for insumo in insumos %}
-        <tr>
-            <td>{{ insumo.id_insumo }}</td>
-            <td>{{ insumo.nome }}</td>
-            <td>{{ insumo.tipo }}</td>
-            <td>{{ insumo.quantidade }}</td>
-            <td>{{ insumo.unidade_medida }}</td>
-            <td>{{ insumo.temperatura_atual }}</td>
-            <td>{{ insumo.umidade_atual }}</td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="7">Nenhum insumo cadastrado.</td>
-        </tr>
-        {% endfor %}
+            {% for insumo in insumos %}
+            <tr>
+                <td>{{ insumo.id_insumo }}</td>
+                <td>{{ insumo.nome }}</td>
+                <td>{{ insumo.tipo }}</td>
+                <td>{{ insumo.quantidade }}</td>
+                <td>{{ insumo.unidade_medida }}</td>
+                <td>{{ insumo.temperatura_atual }}</td>
+                <td>{{ insumo.umidade_atual }}</td>
+            </tr>
+
+            {% else %}
+            <tr>
+                <td colspan="7">Nenhum insumo cadastrado.</td>
+            </tr>
+            {% endfor %}
         </tbody>
+
     </table>
 </div>
+
 {% endblock %}

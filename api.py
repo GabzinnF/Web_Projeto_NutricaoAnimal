@@ -1,7 +1,7 @@
 
 import requests
 
-API_URL = "http://10.135.232.34:5000"
+API_URL = "http://192.168.0.15:5000"
 
 
 def consultar_api(endpoint):

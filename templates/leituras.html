@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="area_cabeça">
+    <div class="area_do_titulo">
+        <h2>Leituras dos Sensores</h2>
+        <p>Temperatura, umidade e data de registro.</p>
+    </div>
+</div>
+
+<div class="tabela">
+    <table class="formato_tabela">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Sensor</th>
+                <th>Setor</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data e hora</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for leitura in leituras|reverse %}
+            <tr>
+                <td>{{ leitura.id_leitura }}</td>
+                <td>{{ leitura.id_sensor }}</td>
+
+                <td>
+                    {% for sensor in sensores %}
+                        {% if sensor.id_sensor == leitura.id_sensor %}
+                            {% for setor in setores %}
+                                {% if setor.id_setor == sensor.id_setor %}
+                                    {{ setor.nome }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+
+                <td>{{ leitura.tipo_leitura }}</td>
+                <td>{{ leitura.valor_leitura }}</td>
+                <td>{{ leitura.data_hora }}</td>
+            </tr>
+
+            {% else %}
+            <tr>
+                <td colspan="6">Nenhuma leitura cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}

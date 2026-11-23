@@ -1,64 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Susten Nutri - Acesso ao Portal</title>
-    <link rel="stylesheet" href="/static/css/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - Susten Nutri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body class="corpo_do_home">
 
 <div class="corpo_de_entrada">
 
-    <div class="boas-vindas ao meu site BABYS">
+    <div class="boas-vindas">
         <h1>SUSTEN NUTRI</h1>
         <p>Industrial Portal</p>
         <span class="subtexto">Gerenciamento de insumos industriais</span>
     </div>
 
-    <div class="colunas_de_login">
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% for categoria, mensagem in mensagens %}
+            <div class="alert alert-{{ categoria }}">{{ mensagem }}</div>
+        {% endfor %}
+    {% endwith %}
 
-        <div class="card_de_autenticaçao">
+    <h3>LOGIN</h3>
 
-            <h3>LOGIN</h3>
+    <form action="{{ url_for('login') }}" method="POST">
 
-            <form action="{{ url_for('login') }}" method="POST">
-
-                <div class="campo-grupo">
-                    <label>Email</label>
-                    <input
-                            id="form_email"
-                            name="form_email"
-                            type="email"
-                            placeholder="Exemplo@gmail.com"
-                            required>
-                </div>
-
-                <div class="campo-grupo">
-                    <label>Senha</label>
-                    <input
-                            id="form_senha"
-                            name="form_senha"
-                            type="password"
-                            placeholder="Digite sua senha"
-                            required>
-                </div>
-
-                <button type="submit" class="btn-verde">
-                    Entrar
-                </button>
-
-            </form>
-
-            <div class="text-center">
-                <p class="text-muted small">
-                    Não tem conta?
-                    <a href="{{ url_for('cadastrar') }}">Cadastro</a></p>
-            </div>
-
+        <div class="campo-grupo">
+            <label>Email</label>
+            <input name="form_email" type="email" required>
         </div>
 
-    </div>
+        <div class="campo-grupo">
+            <label>Senha</label>
+            <input name="form_senha" type="password" required>
+        </div>
+
+        <button type="submit" class="btn-verde">Entrar</button>
+
+    </form>
+
+    <p class="mt-3">
+        Não tem conta?
+        <a href="{{ url_for('cadastrar') }}">Cadastro</a>
+    </p>
 
 </div>
 
